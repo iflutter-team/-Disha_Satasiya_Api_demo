@@ -1,4 +1,4 @@
-.import 'package:api_demo/screen/home/home_controller.dart';
+import 'package:api_demo/screen/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'home_widget.dart';
