@@ -1,5 +1,7 @@
 import 'package:api_demo/home/home_screen.dart';
-import 'package:api_demo/regstration/regstaration_screen.dart';
+import 'package:api_demo/login/login_api.dart';
+import 'package:api_demo/model/login_model.dart';
+import 'package:api_demo/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,8 +12,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  LoginUser? loginUsermodel;
   TextEditingController emaillogin = TextEditingController();
   TextEditingController passwordlogin = TextEditingController();
+
+  Future loginUser() async {
+    Map<String, dynamic> body = {
+      "email": emaillogin.text.trim(),
+      "Password": passwordlogin.text.trim(),
+    };
+    
+    loginUsermodel = await LoginApi.loginUser(body);
+    if (loginUsermodel != null && loginUsermodel!.status == 1) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("SucessFully Login Enjoy Your Home Screen"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,12 +99,16 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialButton(
               color: Colors.indigo,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                );
+                setState(() {
+                  loginUser();
+                  
+                });
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const HomeScreen(),
+                //   ),
+                // );
               },
               child: const Text(
                 "Login",
