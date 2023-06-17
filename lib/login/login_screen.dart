@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:api_demo/home/home_screen.dart';
 import 'package:api_demo/login/login_api.dart';
 import 'package:api_demo/model/login_model.dart';
 import 'package:api_demo/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../services/perference_services.dart';
+import '../utlis/pref_strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,23 +26,29 @@ class _LoginScreenState extends State<LoginScreen> {
       "email": emaillogin.text.trim(),
       "Password": passwordlogin.text.trim(),
     };
-    
+
     loginUsermodel = await LoginApi.loginUser(body);
     if (loginUsermodel != null && loginUsermodel!.status == 1) {
-      // ignore: use_build_context_synchronously
+      PerfServices.setvalue(PerfResourceString.isSignp, true);
+
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => const HomeScreen(),
         ),
       );
-      // ignore: use_build_context_synchronously
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("SucessFully Login Enjoy Your Home Screen"),
         ),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -101,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 setState(() {
                   loginUser();
-                  
                 });
                 // Navigator.push(
                 //   context,

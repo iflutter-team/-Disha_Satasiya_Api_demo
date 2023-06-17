@@ -10,6 +10,8 @@ class EndPointResources {
   /// product api
   static const productAPI = '${basedUrl}products';
   static const addProductAPI = '${basedUrl}products/add';
+
+  //PRODUCT API
   //static const basedUrl = 'https://jsonplaceholder.typicode.com/';
 
   // static const photosEndPoint = '${basedUrl}photos';

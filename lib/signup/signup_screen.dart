@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:api_demo/login/login_screen.dart';
 import 'package:api_demo/model/signup_model.dart';
 import 'package:api_demo/signup/signup_api.dart';
@@ -36,6 +38,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("SucessFully Sign Up Enjoy Your Login Screen"),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 2),
+          content: Text("Alerdy Exists!!"),
         ),
       );
     }

@@ -1,5 +1,7 @@
 import 'package:api_demo/home/home_api.dart';
+import 'package:api_demo/login/login_screen.dart';
 import 'package:api_demo/model/photos_model.dart';
+import 'package:api_demo/services/perference_services.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,6 +37,25 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           title: const Text('HOME'),
           backgroundColor: Colors.indigo,
+          actions: [
+            IconButton(
+              onPressed: () {
+                PerfServices.clearPref();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                    (route) => false);
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const LoginScreen(),
+                //     ));
+              },
+              icon: const Icon(Icons.logout),
+            ),
+          ],
         ),
         body: productList == null
             ? const Center(
@@ -45,9 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) => Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 150,
-                  width: 150,
+                  margin:
+                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  width: MediaQuery.of(context).size.height * 0.05,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: const [
@@ -59,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        height: 100,
-                        width: 150,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        width: MediaQuery.of(context).size.height * 0.15,
                         child: Image(
                           // fit: BoxFit.cover,
                           image: NetworkImage(
@@ -85,8 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.yellow.shade800),
                           ),
-                          const SizedBox(
-                            width: 60,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.08,
                           ),
                           Icon(
                             Icons.star,
