@@ -12,7 +12,7 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> { 
   SignUp? signupUser;
 
   TextEditingController emailRegs = TextEditingController();
